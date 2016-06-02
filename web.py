@@ -25,6 +25,18 @@ def getProducts():
       stock['name'] = i[1]
       stock['industry'] = i[2]
       stock['area'] = i[3]
+      stock['pe'] = i[4]
+      stock['outstanding'] = i[5]
+      stock['totals'] = i[6]
+      stock['totalAssets'] = i[7]
+      stock['liquidAssets'] = i[8]
+      stock['fixedAssets'] = i[9]
+      stock['reserved'] = i[10]
+      stock['reservedPerShare'] = i[11]
+      stock['esp'] = i[12]
+      stock['bvps'] = i[13]
+      stock['pb'] = i[14]
+      stock['timeToMarket'] = i[15]
       ones.append(stock)
     data = {}
     data['data'] = ones
