@@ -19,7 +19,7 @@ def downloadStockInfo():
 df = downloadStockInfo()
 
 if df is None:
-    return
+    exit()
 
 
 sql1 = '''delete from stock_general_info'''
