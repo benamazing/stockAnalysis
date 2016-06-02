@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>Stock Info</title>
+	<script type="text/javascript" src="static/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="static/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/jquery.dataTables.min.css" />
+</head>
+<body>
+	<table id="stockTable">
+		<thead>
+		<tr>
+			<th>Stock Code</th>
+			<th>Stock Name</th>
+			<th>Industry</th>
+			<th>Area</th>
+		</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th>Stock Code</th>
+				<th>Stock Name</th>
+				<th>Industry</th>
+				<th>Area</th>
+
+			</tr>
+
+		</tfoot>
+	</table>
+
+	<script>
+		$('#stockTable').DataTable({
+			"ajax": "/stocklist",
+			"columns": [
+					{"data": "code"},
+					{"data": "name"},
+					{"data": "industry"},
+					{"data": "area"}
+			]
+		});
+	</script>
+</body>
+
+
+</html>
