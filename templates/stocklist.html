@@ -3,7 +3,9 @@
 	<title>Stock Info</title>
 	<script type="text/javascript" src="static/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="static/js/dataTables.buttons.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="static/css/jquery.dataTables.min.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/buttons.dataTables.min.css" />
 </head>
 <body>
 	<table id="stockTable">
@@ -47,6 +49,8 @@
 
 	<script>
 		$('#stockTable').DataTable({
+                        dom: 'Blfrtip',
+                        buttons: ['copy', 'csv', 'excel', 'pdf'],
 			"ajax": "/stocklist",
 			"columns": [
 					{"data": "code"},
@@ -59,7 +63,7 @@
 					{"data": "totalAssets"},
 					{"data": "liquidAssets"},
 					{"data": "fixedAssets"},
-					{"data": "eps"},
+					{"data": "esp"},
 					{"data": "bvps"},
 					{"data": "pb"},
 					{"data": "timeToMarket"}
