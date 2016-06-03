@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="static/js/pdfmake.min.js"></script>
 	<script type="text/javascript" src="static/js/vfs_fonts.js"></script>
 	<script type="text/javascript" src="static/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" src="static/js/stocklist.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="static/css/jquery.dataTables.min.css" />
         <link rel="stylesheet" type="text/css" href="static/css/buttons.dataTables.min.css" />
@@ -52,44 +53,5 @@
 			</tr>
 		</tfoot>
 	</table>
-
-	<script>
-		$(document).ready(function(){
-			$('#stockTable').DataTable({
-				buttons: [
-					{
-						extend: 'csv',
-						text: 'Export to csv'
-					},
-					{
-						extend: 'excel',
-						text: 'Export to Excel'
-					},
-					{
-						extend: 'pdf',
-						text: 'Export to PDF'
-					}
-				],
-				"lengthMenu": [[10,50,100, -1], [10,50,100,"All"]],
-				"ajax": "/stocklist",
-				"columns": [
-					{"data": "code"},
-					{"data": "name"},
-					{"data": "industry"},
-					{"data": "area"},
-					{"data": "pe"},
-					{"data": "outstanding"},
-					{"data": "totals"},
-					{"data": "totalAssets"},
-					{"data": "liquidAssets"},
-					{"data": "fixedAssets"},
-					{"data": "esp"},
-					{"data": "bvps"},
-					{"data": "pb"},
-					{"data": "timeToMarket"}
-				]
-			}).buttons(0, null ).containers().appendTo('body');
-		});
-	</script>
 </body>
 </html>
