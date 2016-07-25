@@ -8,10 +8,6 @@ $(document).ready(function(){
 					{
 						extend: 'excel',
 						text: 'Export to Excel'
-					},
-					{
-						extend: 'pdf',
-						text: 'Export to PDF'
 					}
 		],				
 		"lengthMenu": [[10,50,100, -1], [10,50,100,"All"]],
