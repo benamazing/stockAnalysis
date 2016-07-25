@@ -16,7 +16,7 @@ df = downloadStockInfo()
 
 ff = open('result2.csv', 'w')
 
-ff.write('代码,timeToMarket,StockName,行业,地区,市盈率,总,总资产,每股盈利,涨跌幅超过5%的天数,开始价,结束价,涨跌幅%,换手率>5%,平均换手率' + '\r\n')
+ff.write('代码,上市日期,股票名字,行业,地区,市盈率,总,总资产,每股盈利,涨跌幅超过5%的天数,总天数,开始价,结束价,涨跌幅%,换手率>5%的天数,平均换手率,最近10天换手率>5%,最近10天平均换手率' + '\r\n')
 ind = 0
 for i in df.index:
     code = str(i)
@@ -46,23 +46,45 @@ for i in df.index:
         bigTurnoverCount = 0
         totalTurnover = 0.0
         avgTurnover = 0.0
-        for turnover in histData.turnover:
+
+        recent10DaysBigTurnoverCount = 0
+        recent10DaysTotalTurnover = 0.0
+        recent10DaysAvgTurnover = 0.0
+
+        totalDays = len(histData)
+        x = 0
+        for d in histData.index:
+            x += 1
+            turnover = histData.ix[d]['turnover']
             totalTurnover += turnover
             if turnover >= 5:
                 bigTurnoverCount += 1
+            if x < 10:
+                recent10DaysTotalTurnover += turnover
+                if turnover >=5:
+                    recent10DaysBigTurnoverCount += 1
         try:
             avgTurnover = totalTurnover / len(histData.turnover)
         except Exception as e:
             avgTurnover = 0.0
+
+        try:
+            recent10DaysAvgTurnover = recent10DaysTotalTurnover / x
+        except Exception as e:
+            recent10DaysAvgTurnover = 0.0
+
         for change in histData.p_change:
             if abs(change) >= 5:
                 count += 1
         ff.write(code + ',' + str(timeToMarket) + ',' + str(name) + ',' + str(industry) + ',' + str(area) + ',' + str(pe) + ',' + str(totals) + ',' + str(totalAssets) + ',' + str(esp) + ',' + str(count) + ',')
+        ff.write(str(totalDays) + ',')
         ff.write(str(openPrice) + ',')
         ff.write(str(closePrice) + ',')
         ff.write(str(closePrice/openPrice - 1) + ',')
         ff.write(str(bigTurnoverCount) + ',')
-        ff.write(str(avgTurnover) + '\r\n')
+        ff.write(str(avgTurnover) + ',')
+        ff.write(str(recent10DaysBigTurnoverCount) + ',')
+        ff.write(str(recent10DaysAvgTurnover) + '\r\n')
     ind += 1
     print 'Finished process %d...' % ind
 
