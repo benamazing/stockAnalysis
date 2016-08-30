@@ -28,7 +28,7 @@ for i in df.index:
     totalAssets = df.ix[i]['totalAssets']
     esp = df.ix[i]['esp']
     timeToMarket = df.ix[i]['timeToMarket']
-    histData = ts.get_hist_data(code, start='2016-06-01')
+    histData = ts.get_hist_data(code, start='2016-08-01')
     if histData is None:
         ff.write(code + ',' + '0\r\n')
     else:
@@ -36,10 +36,12 @@ for i in df.index:
         closePrice = 1
         try:
             openPrice = histData.open[-1]
+            openDay = histData.index[-1]
         except Exception as e:
             pass
         try:
             closePrice = histData.close[0]
+            closeDay = histData.index[0]
         except Exception as e:
             pass
         count = 0
@@ -69,6 +71,8 @@ for i in df.index:
             avgTurnover = 0.0
 
         try:
+            if x >= 10:
+                x = 10
             recent10DaysAvgTurnover = recent10DaysTotalTurnover / x
         except Exception as e:
             recent10DaysAvgTurnover = 0.0
@@ -78,6 +82,8 @@ for i in df.index:
                 count += 1
         ff.write(code + ',' + str(timeToMarket) + ',' + str(name) + ',' + str(industry) + ',' + str(area) + ',' + str(pe) + ',' + str(totals) + ',' + str(totalAssets) + ',' + str(esp) + ',' + str(count) + ',')
         ff.write(str(totalDays) + ',')
+        ff.write(str(openDay) + ',')
+        ff.write(str(closeDay) + ',')
         ff.write(str(openPrice) + ',')
         ff.write(str(closePrice) + ',')
         ff.write(str(closePrice/openPrice - 1) + ',')
